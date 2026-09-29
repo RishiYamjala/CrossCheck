@@ -52,8 +52,60 @@ function Dashboard({ linked, setLinked, resolutions, setResolutions, onReport, o
     <div className="workspace"><aside className="control-panel panel"><div className="panel-heading"><div><div className="eyebrow">YOUR SYSTEMS</div><h3>Link your campus life</h3></div><Network size={20} className="cyan-icon" /></div><p className="panel-intro">You choose what to bring together. Start with one, or link them all.</p><div className="system-list">{SYSTEMS.map((system) => { const Icon = iconFor[system.id]; const active = linked.includes(system.id); return <button className={`system-toggle ${active ? 'on' : ''}`} key={system.id} onClick={() => toggle(system.id)}><span className="toggle-icon" style={{ color: system.color, background: active ? system.soft : undefined }}><Icon size={17} /></span><span className="toggle-label"><b>{system.name}</b><small>{active ? 'Linked' : 'Not linked'}</small></span><span className={`switch ${active ? 'checked' : ''}`} style={active ? { background: system.color } : undefined}><span /></span></button>; })}</div><button className="button connect-button" onClick={connectAll} disabled={connecting || linked.length === 5}><Sparkles size={16} /> {connecting ? 'Linking your systems…' : linked.length === 5 ? 'All systems linked' : 'Link All My Systems'}</button><div className="connection-hint"><span className="pulse-ring" /> You can unlink anything at any time.</div></aside>
       <section className="timeline-panel panel"><div className="panel-heading"><div><div className="eyebrow">YOUR DAY / {student.campus.toUpperCase()}</div><h3>Your timeline</h3></div><span className="event-count">{timeline.length} signals</span></div><p className="panel-intro">Only your linked systems are shown, in local time.</p>{timeline.length ? <div className="timeline">{timeline.map((event) => { const system = SYSTEMS.find((item) => item.id === event.system); const Icon = iconFor[event.system]; const flagged = conflictEventIds.includes(event.id); return <div className={`timeline-event ${flagged ? 'flagged' : ''}`} key={event.id}><div className="timeline-time">{event.time}</div><div className="timeline-rail"><span className="timeline-dot" style={{ borderColor: flagged ? '#ff6b6b' : system.color, background: flagged ? '#ff6b6b' : system.color }} /><span className="timeline-line" /></div><div className="event-content"><div className="event-meta"><SystemPill system={event.system} small /><span className="event-kind">{event.kind}</span>{flagged && <span className="flag-chip"><CircleAlert size={11} /> check this</span>}</div><strong>{event.description}</strong></div></div>; })}</div> : <div className="timeline-empty"><div className="empty-icon"><Network size={20} /></div><strong>Link a system to begin</strong><p>Your personal timeline is waiting for its first signal.</p></div>}</section>
       <aside className="conflict-panel panel"><div className="panel-heading"><div><div className="eyebrow">PERSONAL CHECK</div><h3>Is This You?</h3></div>{unresolved.length > 0 && <span className="alert-count">{unresolved.length}</span>}</div><p className="panel-intro">We’ll ask when two of your systems tell different stories.</p>{conflicts.length ? <div className="conflict-list">{conflicts.map((conflict) => <AlertCard key={conflict.id} conflict={conflict} status={resolutions[conflict.id] || 'needs'} onResolve={resolve} onSecure={secure} />)}</div> : <div className="conflict-empty"><div className="empty-check"><CircleCheck size={25} /></div><strong>Everything looks normal…</strong><p>but you’re only seeing part of your day.</p><div className="empty-rule" /></div>}</aside>
-    </div><StudentHubPanel onPush={() => { setToast('Push notification simulated: your campus alert is ready'); setTimeout(() => setToast(''), 3600); }} /><div className="dash-footer"><span><span className="status-dot" /> Your check stays on this device</span><button className="button result-button" onClick={onReport}>See My Report <ArrowRight size={16} /></button></div>{toast && <div className="toast"><Check size={16} /><span>{toast}</span></div>}
+    </div><CrossSystemAnalysis linked={linked} conflicts={conflicts} timeline={timeline} /><StudentHubPanel onPush={() => { setToast('Push notification simulated: your campus alert is ready'); setTimeout(() => setToast(''), 3600); }} /><div className="dash-footer"><span><span className="status-dot" /> Your check stays on this device</span><button className="button result-button" onClick={onReport}>See My Report <ArrowRight size={16} /></button></div>{toast && <div className="toast"><Check size={16} /><span>{toast}</span></div>}
   </main>;
+}
+
+function CrossSystemAnalysis({ linked, conflicts, timeline }) {
+  const [state, setState] = useState('idle');
+  const [analysis, setAnalysis] = useState(null);
+  const [error, setError] = useState('');
+
+  const runAnalysis = async () => {
+    setState('loading');
+    setError('');
+    try {
+      const payload = {
+        student: { id: student.id, name: student.name, campus: student.campus },
+        connectedSystems: SYSTEMS.filter((item) => linked.includes(item.id)).map(({ id, name }) => ({ id, name })),
+        availableSystems: SYSTEMS.map(({ id, name }) => ({ id, name })),
+        timeline,
+        ruleBasedFindings: conflicts,
+        timetable,
+        attendance: attendanceSummary,
+        maintenanceAlerts,
+        messMenu,
+        classTopics,
+        examMaterials,
+        campusPlaces,
+        events: srmapEvents,
+        shuttleRoutes,
+        clubs: srmapClubs,
+      };
+      const response = await fetch('/api/cross-system-analysis', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const body = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(body.error || 'AI analysis unavailable right now.');
+      setAnalysis(body);
+      setState('success');
+    } catch (requestError) {
+      setError(requestError.message || 'AI analysis unavailable right now.');
+      setState('error');
+    }
+  };
+
+  const issues = Array.isArray(analysis?.issues) ? analysis.issues : [];
+  return <section className="cross-system-analysis">
+    <div className="cross-analysis-head"><div><div className="eyebrow">GEMINI INTELLIGENCE LAYER / PS02</div><h3>Cross-System AI Analysis</h3><p>Gemini connects your fragmented campus signals to find hidden conflicts, risks, impact, and next actions.</p></div><button className="button cross-analysis-button" onClick={runAnalysis} disabled={state === 'loading'}><Sparkles size={16} />{state === 'loading' ? 'Analyzing connected systems…' : 'Run AI Analysis'}<ArrowRight size={15} /></button></div>
+    <div className="cross-analysis-flow"><span>FRAGMENTED SYSTEMS</span><ArrowRight size={13} /><span>CROSS-SYSTEM DATA</span><ArrowRight size={13} /><span>GEMINI ANALYSIS</span><ArrowRight size={13} /><span>IMPACT + ACTION</span></div>
+    {state === 'idle' && <div className="cross-analysis-idle"><Sparkles size={21} /><div><b>See what your systems cannot see alone.</b><small>Run analysis to cross-check {linked.length || 'all available'} campus signals together.</small></div></div>}
+    {state === 'loading' && <div className="cross-analysis-loading"><span className="cross-analysis-spinner" /><div><b>Analyzing connected systems…</b><small>Looking for relationships, resource conflicts, affected people, and practical recommendations.</small></div></div>}
+    {state === 'error' && <div className="cross-analysis-error"><CircleAlert size={18} /><div><b>AI analysis unavailable</b><small>{error}</small></div><button className="button ghost" onClick={runAnalysis}>Try again</button></div>}
+    {state === 'success' && analysis && <div className="cross-analysis-results"><div className="cross-analysis-summary"><div><div className="eyebrow">OVERALL STATUS</div><strong>{analysis.overall_status || 'Connected view ready'}</strong></div><p>{analysis.summary || 'Gemini returned no additional summary.'}</p></div>{issues.length ? <div className="cross-analysis-issues">{issues.map((issue, index) => { const severity = String(issue.severity || 'medium').toLowerCase(); return <article className={`cross-analysis-issue ${severity}`} key={`${issue.title || 'issue'}-${index}`}><div className="cross-analysis-issue-top"><span>{severity} priority</span><b>0{index + 1}</b></div><h4>{issue.title}</h4><p>{issue.description}</p><div className="cross-analysis-field"><span>Systems involved</span><b>{Array.isArray(issue.systems_involved) ? issue.systems_involved.join(' + ') : 'Cross-system signals'}</b></div><div className="cross-analysis-field"><span>Affected</span><b>{issue.affected}</b></div><div className="cross-analysis-field"><span>Why this was detected</span><ul>{(Array.isArray(issue.evidence) ? issue.evidence : []).map((evidence, evidenceIndex) => <li key={`${evidence}-${evidenceIndex}`}>{evidence}</li>)}</ul></div><div className="cross-analysis-recommendation"><ShieldCheck size={15} /><div><span>Recommended action</span><b>{issue.recommendation}</b></div></div></article>; })}</div> : <div className="cross-analysis-idle"><CircleCheck size={21} /><div><b>No cross-system issue found in this snapshot.</b><small>{analysis.summary}</small></div></div>}</div>}
+  </section>;
 }
 
 function StudentHubPanel({ onPush }) {
