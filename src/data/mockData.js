@@ -6,7 +6,7 @@ export const SYSTEMS = [
   { id: 'library', name: 'Library', short: 'LIB', color: '#f5cd5c', soft: 'rgba(245,205,92,.14)' },
 ];
 
-export const student = { id: 'S002', name: 'Ravi Kumar', shortName: 'Ravi', campus: 'Amaravati', events: [
+export const student = { id: 'S002', name: 'Ravi Kumar', shortName: 'Ravi', campus: 'SRM University–AP · Amaravati', events: [
   { id: 'ravi-gate-1', system: 'gate', time: '08:45', description: 'Entry · Main Gate', kind: 'entry', building: 'Main Gate' },
   { id: 'ravi-wifi-1', system: 'wifi', time: '08:55', description: 'Ravi-Laptop connected · Block A', kind: 'device', building: 'Block A' },
   { id: 'ravi-portal-1', system: 'portal', time: '09:05', description: 'Login from Hyderabad · 270 km away', kind: 'login', location: 'Hyderabad', distance: 270 },
@@ -99,11 +99,11 @@ export const examMaterials = [
 ];
 
 export const campusPlaces = [
-  { id: 'main-gate', name: 'Main Gate', type: 'Access', detail: 'Open · ID verification available', x: 12, y: 72, color: '#44d18a' },
-  { id: 'central-library', name: 'Central Library', type: 'Study', detail: 'Open until 22:00 · 2nd floor maintenance', x: 46, y: 30, color: '#f5cd5c' },
-  { id: 'block-a', name: 'Block A', type: 'Classes', detail: 'CS101 · Room 204', x: 74, y: 25, color: '#4f9cf9' },
-  { id: 'hostel-b', name: 'Hostel-B', type: 'Residence', detail: 'Wi-Fi maintenance at 22:00', x: 77, y: 72, color: '#b183ff' },
-  { id: 'mess', name: 'Student Mess', type: 'Food', detail: 'Lunch served 12:00–14:00', x: 32, y: 75, color: '#f59b58' },
+  { id: 'main-gate', name: 'SRM AP Main Gate', type: 'Access', detail: 'Open · ID verification available', x: 12, y: 72, color: '#44d18a' },
+  { id: 'central-library', name: 'SRM AP Central Library', type: 'Study', detail: 'Open until 22:00 · 2nd floor maintenance', x: 46, y: 30, color: '#f5cd5c' },
+  { id: 'block-a', name: 'SRM AP Block A', type: 'Classes', detail: 'CS101 · Room 204', x: 74, y: 25, color: '#4f9cf9' },
+  { id: 'hostel-b', name: 'SRM AP Hostel-B', type: 'Residence', detail: 'Wi-Fi maintenance at 22:00', x: 77, y: 72, color: '#b183ff' },
+  { id: 'mess', name: 'SRM AP Student Mess', type: 'Food', detail: 'Lunch served 12:00–14:00', x: 32, y: 75, color: '#f59b58' },
 ];
 
 export const textbookListings = [
