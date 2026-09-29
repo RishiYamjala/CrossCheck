@@ -61,3 +61,7 @@ body { background:#f6f9fb; color:#172532; } .page-shell { color:#172532; backgro
 
 /* SRM University–AP identity */
 .brand { gap:10px; } .brand-campus { display:inline-flex; align-items:center; padding-left:10px; margin-left:2px; border-left:1px solid #b9cbd4; color:#5f7785; font:9px 'DM Mono'; letter-spacing:.08em; } .page-shell { background-image:linear-gradient(180deg,rgba(248,251,253,.9) 0%,rgba(248,251,253,.88) 45%,rgba(248,251,253,.97) 100%),url('/srmap-campus.jpg') !important; background-position:center top; }
+
+/* SRM AP classes menu */
+.class-menu-widget { grid-column:span 8; } .class-menu-tabs { display:flex; gap:5px; margin:12px 0 3px; } .class-menu-tabs button { padding:6px 9px; border:1px solid #d3e0e6; border-radius:5px; color:#6b8290; background:#fff; font-size:9px; } .class-menu-tabs button.active { color:#fff; background:#16aab4; border-color:#16aab4; } .class-menu-links { display:flex; gap:7px; flex-wrap:wrap; margin-top:12px; } .class-menu-links span { padding:5px 7px; border:1px solid #d9e5ea; border-radius:4px; color:#6d8491; background:#f5fafb; font:8px 'DM Mono'; }
+@media (max-width:1050px) { .class-menu-widget { grid-column:span 6; } } @media (max-width:700px) { .class-menu-widget { grid-column:auto; } }

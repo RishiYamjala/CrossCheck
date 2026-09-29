@@ -101,9 +101,16 @@ export const examMaterials = [
 export const campusPlaces = [
   { id: 'main-gate', name: 'SRM AP Main Gate', type: 'Access', detail: 'Open · ID verification available', x: 12, y: 72, color: '#44d18a' },
   { id: 'central-library', name: 'SRM AP Central Library', type: 'Study', detail: 'Open until 22:00 · 2nd floor maintenance', x: 46, y: 30, color: '#f5cd5c' },
-  { id: 'block-a', name: 'SRM AP Block A', type: 'Classes', detail: 'CS101 · Room 204', x: 74, y: 25, color: '#4f9cf9' },
-  { id: 'hostel-b', name: 'SRM AP Hostel-B', type: 'Residence', detail: 'Wi-Fi maintenance at 22:00', x: 77, y: 72, color: '#b183ff' },
+  { id: 'academic-block', name: 'SRM AP Academic Block', type: 'Classes', detail: 'Classrooms · lecture halls · labs', x: 72, y: 22, color: '#4f9cf9' },
+  { id: 'research-labs', name: 'SRM AP Research Labs', type: 'Labs', detail: 'Research and project spaces', x: 84, y: 40, color: '#16aab4' },
+  { id: 'hostels', name: 'SRM AP Hostels', type: 'Residence', detail: 'Residential amenities · Hostel-B Wi-Fi maintenance', x: 78, y: 76, color: '#b183ff' },
   { id: 'mess', name: 'SRM AP Student Mess', type: 'Food', detail: 'Lunch served 12:00–14:00', x: 32, y: 75, color: '#f59b58' },
+  { id: 'cafeteria', name: 'SRM AP Cafeteria', type: 'Food', detail: 'Coffee, snacks, and quick meals', x: 22, y: 48, color: '#f59b58' },
+  { id: 'sports', name: 'SRM AP Sports Arena', type: 'Sports', detail: 'Track · courts · indoor gym', x: 15, y: 24, color: '#44d18a' },
+  { id: 'auditorium', name: 'SRM AP Auditorium', type: 'Events', detail: 'Talks, performances, and campus events', x: 36, y: 20, color: '#e58cdb' },
+  { id: 'innovation', name: 'SRM AP Innovation Hub', type: 'Student life', detail: 'Clubs, projects, and maker spaces', x: 57, y: 68, color: '#16aab4' },
+  { id: 'medical', name: 'SRM AP Medical Centre', type: 'Health', detail: 'Student health support', x: 55, y: 85, color: '#d95050' },
+  { id: 'parking', name: 'SRM AP Parking', type: 'Transport', detail: 'Student and visitor parking', x: 90, y: 87, color: '#8196a5' },
 ];
 
 export const textbookListings = [
