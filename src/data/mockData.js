@@ -1,5 +1,5 @@
 export const SYSTEMS = [
-  { id: 'attendance', name: 'Attendance', short: 'ATT', color: '#4f9cf9', soft: 'rgba(79,156,249,.14)' },
+  { id: 'attendance', name: 'Attendance', short: 'ATT', color: '#d9f15d', soft: 'rgba(217,241,93,.14)' },
   { id: 'gate', name: 'ID Gate', short: 'GATE', color: '#44d18a', soft: 'rgba(68,209,138,.14)' },
   { id: 'wifi', name: 'Campus Wi-Fi', short: 'WIFI', color: '#b183ff', soft: 'rgba(177,131,255,.14)' },
   { id: 'portal', name: 'Student Portal', short: 'PORTAL', color: '#f59b58', soft: 'rgba(245,155,88,.14)' },
@@ -101,7 +101,7 @@ export const examMaterials = [
 export const campusPlaces = [
   { id: 'main-gate', name: 'SRM AP Main Gate', type: 'Access', detail: 'Open · ID verification available', x: 12, y: 72, color: '#44d18a' },
   { id: 'central-library', name: 'SRM AP Central Library', type: 'Study', detail: 'Open until 22:00 · 2nd floor maintenance', x: 46, y: 30, color: '#f5cd5c' },
-  { id: 'academic-block', name: 'SRM AP Academic Block', type: 'Classes', detail: 'Classrooms · lecture halls · labs', x: 72, y: 22, color: '#4f9cf9' },
+  { id: 'academic-block', name: 'SRM AP Academic Block', type: 'Classes', detail: 'Classrooms · lecture halls · labs', x: 72, y: 22, color: '#d9f15d' },
   { id: 'research-labs', name: 'SRM AP Research Labs', type: 'Labs', detail: 'Research and project spaces', x: 84, y: 40, color: '#16aab4' },
   { id: 'hostels', name: 'SRM AP Hostels', type: 'Residence', detail: 'Residential amenities · Hostel-B Wi-Fi maintenance', x: 78, y: 76, color: '#b183ff' },
   { id: 'mess', name: 'SRM AP Student Mess', type: 'Food', detail: 'Lunch served 12:00–14:00', x: 32, y: 75, color: '#f59b58' },
@@ -133,7 +133,7 @@ export const srmapClubs = [
 ];
 
 export const srmapEvents = [
-  { id: 'event-1', day: 'Mon', date: '12', month: 'OCT', title: 'Coding Club · Hack Night', place: 'Innovation Hub', time: '18:30–20:30', category: 'Club', color: '#4f9cf9' },
+  { id: 'event-1', day: 'Mon', date: '12', month: 'OCT', title: 'Coding Club · Hack Night', place: 'Innovation Hub', time: '18:30–20:30', category: 'Club', color: '#d9f15d' },
   { id: 'event-2', day: 'Tue', date: '13', month: 'OCT', title: 'Dramatics · Open Auditions', place: 'SRM AP Auditorium', time: '17:00–19:00', category: 'Culture', color: '#e58cdb' },
   { id: 'event-3', day: 'Wed', date: '14', month: 'OCT', title: 'E-Cell · Founder Fireside', place: 'Student Center', time: '16:00–17:30', category: 'Talk', color: '#f59b58' },
   { id: 'event-4', day: 'Thu', date: '15', month: 'OCT', title: 'Sports Council · Trials', place: 'Sports Arena', time: '16:30–18:30', category: 'Sports', color: '#44d18a' },
@@ -141,7 +141,7 @@ export const srmapEvents = [
 ];
 
 export const shuttleRoutes = [
-  { id: 'route-a', name: 'Route A · Main Gate loop', status: 'On time', eta: '4 min', vehicle: 'SRM-AP 08', color: '#16aab4', stops: ['Main Gate', 'Academic Block', 'Central Library', 'Hostels', 'Student Mess'], nextStop: 'Academic Block', departures: ['07:30', '08:15', '09:00', '10:00', '12:00', '16:30', '18:00'] },
+  { id: 'route-a', name: 'Route A · Main Gate loop', status: 'On time', eta: '4 min', vehicle: 'SRM-AP 08', color: '#d9f15d', stops: ['Main Gate', 'Academic Block', 'Central Library', 'Hostels', 'Student Mess'], nextStop: 'Academic Block', departures: ['07:30', '08:15', '09:00', '10:00', '12:00', '16:30', '18:00'] },
   { id: 'route-b', name: 'Route B · Hostel connector', status: 'Approaching', eta: '2 min', vehicle: 'SRM-AP 12', color: '#b183ff', stops: ['Hostels', 'Sports Arena', 'Innovation Hub', 'Academic Block', 'Main Gate'], nextStop: 'Sports Arena', departures: ['07:45', '08:45', '10:15', '12:30', '15:30', '17:30', '19:00'] },
   { id: 'route-c', name: 'Route C · Evening campus', status: 'Delayed 6 min', eta: '11 min', vehicle: 'SRM-AP 04', color: '#f59b58', stops: ['Student Mess', 'Central Library', 'Auditorium', 'Cafeteria', 'Hostels'], nextStop: 'Central Library', departures: ['16:00', '17:00', '18:00', '19:00', '20:00', '21:00'] },
 ];
