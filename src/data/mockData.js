@@ -54,3 +54,46 @@ export function detectConflicts(currentStudent, enabledSystems) {
   }
   return conflicts;
 }
+
+export const timetable = [
+  { day: 'Mon', subject: 'Data Structures', code: 'CS101', room: 'Block A · 204', time: '10:00–11:00', color: '#4f9cf9' },
+  { day: 'Tue', subject: 'Computer Networks', code: 'CS204', room: 'Tech Hall · 302', time: '09:00–10:00', color: '#b183ff' },
+  { day: 'Wed', subject: 'Database Systems', code: 'CS212', room: 'Block B · 118', time: '11:00–12:00', color: '#f59b58' },
+  { day: 'Thu', subject: 'Operating Systems', code: 'CS305', room: 'Innovation Lab', time: '14:00–15:30', color: '#44d18a' },
+  { day: 'Fri', subject: 'Software Engineering', code: 'CS318', room: 'Block A · 110', time: '10:00–11:00', color: '#f5cd5c' },
+];
+
+export const attendanceSummary = [
+  { code: 'CS101', subject: 'Data Structures', attended: 21, total: 24, color: '#4f9cf9' },
+  { code: 'CS204', subject: 'Computer Networks', attended: 18, total: 20, color: '#b183ff' },
+  { code: 'CS212', subject: 'Database Systems', attended: 16, total: 19, color: '#f59b58' },
+  { code: 'CS305', subject: 'Operating Systems', attended: 20, total: 22, color: '#44d18a' },
+];
+
+export const messMenu = [
+  { day: 'Mon', lunch: 'Rajma rice · Curd', dinner: 'Roti · Paneer curry' },
+  { day: 'Tue', lunch: 'Veg biryani · Raita', dinner: 'Dal khichdi · Salad' },
+  { day: 'Wed', lunch: 'Lemon rice · Sambar', dinner: 'Noodles · Manchurian' },
+  { day: 'Thu', lunch: 'Chole · Jeera rice', dinner: 'Dosa · Coconut chutney' },
+  { day: 'Fri', lunch: 'Fried rice · Soup', dinner: 'Chapati · Mixed veg' },
+  { day: 'Sat', lunch: 'Pulao · Dal fry', dinner: 'Pizza · Sweet corn' },
+  { day: 'Sun', lunch: 'Special thali', dinner: 'Idli · Sambar' },
+];
+
+export const maintenanceAlerts = [
+  { id: 'maint-1', place: 'Hostel-B Wi-Fi', message: 'Scheduled maintenance tonight', time: '22:00–23:30', level: 'planned' },
+  { id: 'maint-2', place: 'Central Library · 2nd floor', message: 'Study zone lights being repaired', time: 'Until 16:00 today', level: 'notice' },
+  { id: 'maint-3', place: 'Main Gate', message: 'Normal access · no issues reported', time: 'Updated 09:15', level: 'clear' },
+];
+
+export const classTopics = [
+  { subject: 'Data Structures', code: 'CS101', topic: 'Graph traversal: BFS and DFS', taught: 'Today · 10:00', teacher: 'Dr. Meera Rao' },
+  { subject: 'Computer Networks', code: 'CS204', topic: 'Transport layer and TCP flow control', taught: 'Yesterday · 09:00', teacher: 'Prof. Arjun Singh' },
+  { subject: 'Database Systems', code: 'CS212', topic: 'Normalization and functional dependencies', taught: 'Mon · 11:00', teacher: 'Dr. Kavya Nair' },
+];
+
+export const examMaterials = [
+  { subject: 'Data Structures', code: 'CS101', type: 'Revision notes', detail: 'Trees, graphs, and complexity cheat sheet', size: '2.4 MB' },
+  { subject: 'Computer Networks', code: 'CS204', type: 'Practice paper', detail: 'Mid-semester mock questions with answers', size: '1.8 MB' },
+  { subject: 'Database Systems', code: 'CS212', type: 'Formula sheet', detail: 'SQL patterns and normalization examples', size: '920 KB' },
+];
