@@ -97,3 +97,23 @@ export const examMaterials = [
   { subject: 'Computer Networks', code: 'CS204', type: 'Practice paper', detail: 'Mid-semester mock questions with answers', size: '1.8 MB' },
   { subject: 'Database Systems', code: 'CS212', type: 'Formula sheet', detail: 'SQL patterns and normalization examples', size: '920 KB' },
 ];
+
+export const campusPlaces = [
+  { id: 'main-gate', name: 'Main Gate', type: 'Access', detail: 'Open · ID verification available', x: 12, y: 72, color: '#44d18a' },
+  { id: 'central-library', name: 'Central Library', type: 'Study', detail: 'Open until 22:00 · 2nd floor maintenance', x: 46, y: 30, color: '#f5cd5c' },
+  { id: 'block-a', name: 'Block A', type: 'Classes', detail: 'CS101 · Room 204', x: 74, y: 25, color: '#4f9cf9' },
+  { id: 'hostel-b', name: 'Hostel-B', type: 'Residence', detail: 'Wi-Fi maintenance at 22:00', x: 77, y: 72, color: '#b183ff' },
+  { id: 'mess', name: 'Student Mess', type: 'Food', detail: 'Lunch served 12:00–14:00', x: 32, y: 75, color: '#f59b58' },
+];
+
+export const textbookListings = [
+  { id: 'book-1', title: 'Data Structures in C', subject: 'CS101', seller: 'Aisha · 2nd year', price: '₹450', condition: 'Good condition', pickup: 'Block A lobby', color: '#4f9cf9' },
+  { id: 'book-2', title: 'Computer Networks: A Top-Down Approach', subject: 'CS204', seller: 'Vikram · 3rd year', price: '₹700', condition: 'Like new', pickup: 'Central Library', color: '#b183ff' },
+  { id: 'book-3', title: 'Database System Concepts', subject: 'CS212', seller: 'Neha · 4th year', price: '₹520', condition: 'Highlighted notes included', pickup: 'Student Center', color: '#f59b58' },
+];
+
+export const studyGroups = [
+  { id: 'group-1', subject: 'CS101 · Graphs & Trees', members: 4, max: 6, when: 'Today · 18:30', where: 'Library 2nd floor', host: 'Arjun', color: '#4f9cf9' },
+  { id: 'group-2', subject: 'CS204 · TCP Revision', members: 3, max: 5, when: 'Wed · 17:00', where: 'Tech Hall lounge', host: 'Meera', color: '#b183ff' },
+  { id: 'group-3', subject: 'CS212 · Exam prep', members: 5, max: 8, when: 'Fri · 16:00', where: 'Block B 118', host: 'Karan', color: '#f59b58' },
+];

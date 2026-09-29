@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Activity, ArrowRight, BookOpen, Check, ChevronDown, CircleAlert, CircleCheck, DoorOpen, Fingerprint, Globe2, LibraryBig, Link2, LockKeyhole, Network, Play, Printer, RotateCcw, ShieldCheck, Sparkles, UserRound, Wifi, X } from 'lucide-react';
-import { attendanceSummary, classTopics, detectConflicts, examMaterials, maintenanceAlerts, messMenu, RULES, SYSTEMS, student, timetable } from './data/mockData';
+import { attendanceSummary, campusPlaces, classTopics, detectConflicts, examMaterials, maintenanceAlerts, messMenu, RULES, studyGroups, SYSTEMS, student, textbookListings, timetable } from './data/mockData';
 
 const iconFor = { attendance: Activity, gate: DoorOpen, wifi: Wifi, portal: Globe2, library: LibraryBig };
 const statusLabel = { needs: 'Needs attention', safe: 'Confirmed safe', secured: 'Secured' };
@@ -69,7 +69,30 @@ function StudentHubPanel({ onPush }) {
     <article className="hub-card mess-widget"><div className="hub-card-top"><div><div className="eyebrow">WEEKLY MENU</div><h4>Mess menu</h4></div><span className="menu-day-label">{menuDay}</span></div><div className="menu-day-tabs">{messMenu.map((item) => <button className={item.day === menuDay ? 'active' : ''} onClick={() => setMenuDay(item.day)} key={item.day}>{item.day}</button>)}</div>{selectedMenu && <div className="menu-meals"><div><span>Lunch</span><b>{selectedMenu.lunch}</b></div><div><span>Dinner</span><b>{selectedMenu.dinner}</b></div></div>}</article>
     <article className="hub-card topics-widget"><div className="hub-card-top"><div><div className="eyebrow">CLASS NOTES</div><h4>Topics taught</h4></div><Network size={19} className="cyan-icon" /></div><div className="topic-list">{classTopics.map((item) => <div className="topic-row" key={item.code}><span>{item.code}</span><div><b>{item.topic}</b><small>{item.subject} · {item.taught}</small></div></div>)}</div></article>
     <article className="hub-card materials-widget"><div className="hub-card-top"><div><div className="eyebrow">EXAM PREP</div><h4>My materials</h4></div><Link2 size={19} className="cyan-icon" /></div><div className="material-list">{examMaterials.map((item) => <div className="material-row" key={item.code}><div className="material-icon"><BookOpen size={15} /></div><div><b>{item.type}</b><small>{item.code} · {item.detail}</small></div><span>{item.size}</span></div>)}</div></article>
-  </div></section>;
+  </div><CampusMapCard /><CommunityCard /></section>;
+}
+
+function CampusMapCard() {
+  const [tracking, setTracking] = useState(false);
+  const [selectedPlace, setSelectedPlace] = useState(campusPlaces[1]);
+  const [position, setPosition] = useState(null);
+  const watchId = useRef(null);
+  useEffect(() => () => { if (watchId.current !== null && navigator.geolocation) navigator.geolocation.clearWatch(watchId.current); }, []);
+  const startTracking = () => {
+    if (!navigator.geolocation) { setPosition({ label: 'Demo location · Central Library' }); setTracking(true); return; }
+    setTracking(true);
+    watchId.current = navigator.geolocation.watchPosition((value) => setPosition({ label: 'Live location active', lat: value.coords.latitude, lng: value.coords.longitude }), () => setPosition({ label: 'Demo location · Central Library' }), { enableHighAccuracy: true, maximumAge: 10000 });
+  };
+  return <article className="hub-card campus-map-card"><div className="hub-card-top"><div><div className="eyebrow">CAMPUS NAVIGATION</div><h4>Live campus map</h4><p className="hub-subcopy">Find buildings, food, study spots, and maintenance notices.</p></div><Globe2 size={19} className="cyan-icon" /></div><div className="map-layout"><div className="campus-map"><div className="map-road road-a" /><div className="map-road road-b" />{campusPlaces.map((place) => <button key={place.id} className={`map-place ${selectedPlace.id === place.id ? 'selected' : ''}`} style={{ left: `${place.x}%`, top: `${place.y}%`, '--place-color': place.color }} onClick={() => setSelectedPlace(place)} title={place.name}><span>{place.type === 'Access' ? '↗' : place.type === 'Study' ? '▤' : place.type === 'Classes' ? '⌂' : place.type === 'Residence' ? '⌂' : '✦'}</span></button>)}{tracking && <div className="user-location" style={{ left: '48%', top: '42%' }}><span /></div>}<span className="map-label label-north">N</span></div><div className="map-details"><div className="map-selected"><span className="place-color" style={{ background: selectedPlace.color }} /><div><b>{selectedPlace.name}</b><small>{selectedPlace.type} · {selectedPlace.detail}</small></div></div><button className={`button gps-button ${tracking ? 'active' : ''}`} onClick={startTracking}><Globe2 size={14} />{tracking ? position?.label || 'Live GPS tracking on' : 'Use my live location'}</button><small className="map-privacy">GPS permission is optional. Demo fallback stays on this device.</small></div></div></article>;
+}
+
+function CommunityCard() {
+  const [tab, setTab] = useState('books');
+  const [query, setQuery] = useState('');
+  const [notice, setNotice] = useState('');
+  const list = tab === 'books' ? textbookListings.filter((item) => `${item.title} ${item.subject}`.toLowerCase().includes(query.toLowerCase())) : studyGroups.filter((item) => `${item.subject} ${item.where}`.toLowerCase().includes(query.toLowerCase()));
+  const action = (message) => { setNotice(message); setTimeout(() => setNotice(''), 2600); };
+  return <article className="hub-card community-card"><div className="hub-card-top"><div><div className="eyebrow">STUDENT COMMUNITY</div><h4>Swap, sell, study together</h4><p className="hub-subcopy">Connect with classmates without leaving your portal.</p></div><Link2 size={19} className="cyan-icon" /></div><div className="community-controls"><div className="community-tabs"><button className={tab === 'books' ? 'active' : ''} onClick={() => setTab('books')}>Textbooks</button><button className={tab === 'groups' ? 'active' : ''} onClick={() => setTab('groups')}>Study groups</button></div><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder={tab === 'books' ? 'Search books or subjects' : 'Search subjects or places'} /></div><div className="community-list">{list.map((item) => tab === 'books' ? <div className="community-row" key={item.id}><span className="community-icon" style={{ color: item.color, background: `${item.color}18` }}><BookOpen size={15} /></span><div><b>{item.title}</b><small>{item.subject} · {item.seller} · {item.condition}</small><small>Meet at {item.pickup}</small></div><div className="community-action"><strong>{item.price}</strong><button onClick={() => action(`Message sent to ${item.seller.split(' · ')[0]} (demo)`)}>Message</button></div></div> : <div className="community-row" key={item.id}><span className="community-icon" style={{ color: item.color, background: `${item.color}18` }}><UserRound size={15} /></span><div><b>{item.subject}</b><small>{item.members}/{item.max} members · hosted by {item.host}</small><small>{item.when} · {item.where}</small></div><div className="community-action"><button onClick={() => action(`Join request sent to ${item.host} (demo)`)}>Join group</button></div></div>)}</div>{notice && <div className="community-notice"><Check size={14} /> {notice}</div>}</article>;
 }
 
 function SafetyRing({ score }) {
