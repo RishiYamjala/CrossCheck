@@ -1,4 +1,4 @@
-# CrossCheck Campus — Design Brief
+# CrossCheck Me — Design Brief
 
 ## Theme Name
 Signal / Gap / Link
@@ -34,7 +34,7 @@ Use subtle 180–260ms ease-out transitions for cards and controls. The Connect 
 Use Inter/system sans for UI, with a restrained mono stack for timestamps, IDs, labels, and rule names. Headlines are compact and bold; body text stays at comfortable reading sizes.
 
 ## Brand essence
-CrossCheck Campus is the connective tissue between systems that were never designed to talk.
+CrossCheck Me is the student’s connective tissue between systems that were never designed to talk.
 
 ## Brand voice
 Plain-English, precise, quietly urgent. Explain the contradiction first, then the recommended action.
